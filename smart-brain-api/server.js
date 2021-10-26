@@ -1,7 +1,26 @@
+require("dotenv").config({ path: "./.env" });
 const express = require("express");
 const app = express();
 const bcrypt = require("bcrypt-nodejs");
 const cors = require("cors");
+const knex = require("knex");
+
+const db = knex({
+  client: "pg",
+  connection: {
+    host: "127.0.0.1",
+    port: 5432,
+    user: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASS,
+    database: "smart-brain",
+  },
+});
+
+db.select()
+  .from("users")
+  .then((data) => {
+    console.log(data);
+  });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -48,13 +67,14 @@ app.post("/register", (req, res) => {
   // bcrypt.hash(password, null, null, function (err, hash) {
   //   console.log(hash);
   // });
-  database.users.push({
-    id: "125",
-    name: name,
-    email: email,
-    entries: 0,
-    joined: new Date(),
-  });
+  db("users")
+    .insert({
+      email: email,
+      name: name,
+      joined: new Date(),
+    })
+    .then(console.log);
+
   res.json(database.users[database.users.length - 1]);
 });
 
