@@ -4,7 +4,7 @@ import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
-import SignIn from "./components/SignIn/SignIn";
+import Signin from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
 import React from "react";
 import Particles from "react-tsparticles";
@@ -228,7 +228,7 @@ class App extends React.Component {
             />
           </div>
         ) : this.state.route === "signin" ? (
-          <SignIn onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
+          <Signin onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
         ) : (
           <Register
             onRouteChange={this.onRouteChange}
